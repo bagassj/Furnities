@@ -1,3 +1,11 @@
+<?php
+require_once "conn.php"; 
+if($user->isLoggedIn()){ 
+
+  header("location: admin/index.php"); //Redirect ke index 
+
+} 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,12 +15,12 @@
     <title>Furnities - Buy cheap and best furniture</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-sm bg-blue">
         <div class="container">
-            <a class="navbar-brand" href="#">Logo</a>
+            <a class="navbar-brand" href="index.php"><img src="assets/img/logo.png" alt="" style="width: 90px;"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -37,9 +45,9 @@
                 <h1>Selamat Datang</h1>
                 <p class="my-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, necessitatibus! Ipsam reprehenderit magni animi! At nemo qui obcaecati rerum, voluptatum maiores laudantium quidem! Distinctio nulla doloremque, accusamus nesciunt ipsam perferendis. Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, necessitatibus! Ipsam reprehenderit magni animi! At nemo qui obcaecati rerum, voluptatum maiores laudantium quidem! Distinctio nulla doloremque, accusamus nesciunt ipsam perferendis.</p>
                 <div class="w-100 text-center">
-                    <button type="button" class="btn btn-secondary btn-md px-5 py-2" onclick="location.href='signin.html'">Sign In</button>
+                    <button type="button" class="btn btn-md px-5 py-2" onclick="location.href='signin.php'">Sign In</button>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <button type="button" class="btn btn-secondary btn-md px-5 py-2" onclick="location.href='signup.html'">Sign Up</button>
+                    <button type="button" class="btn btn-md px-5 py-2" onclick="location.href='signup.php'">Sign Up</button>
                 </div>
             </div>
         </section>

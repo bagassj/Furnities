@@ -1,3 +1,13 @@
+.btn-prim{
+    background-color: #37474F;
+    color: #fff;
+    text-transform: uppercase;
+}
+.btn-green{
+    background-color: #115e69;
+    color: #fff;
+    text-transform: uppercase;
+}
 /* NAVBAR */
 .navbar{
     background: #115e69;
@@ -38,8 +48,22 @@
     display: block;
     padding-top: 50%;
 }
+#welcomePage h1{
+    color: rgba(0, 0, 0, 0.5);
+}
+#welcomePage p, #welcomePage label, #welcomePage a, #welcomePage span, #welcomePage h6{
+    color: rgba(0, 0, 0, 0.67);
+}
+#welcomePage input{
+    border-color: #086E7D;
+}
+#welcomePage .btn{
+    background-color: #37474F;
+    color: #fff;
+    text-transform: uppercase;
+}
 
-/* WELCOME PAGE */
+/* CATALOG PAGE */
 #catalogPage .catalogImg{
     background-size: cover;
     background-position: center;
@@ -50,4 +74,22 @@
     content: "";
     display: block;
     padding-top: 50%;
+}
+#catalogPage h3{
+    color: rgba(0, 0, 0, 0.5);
+}
+#catalogPage span a{
+    font-size: 14pt;
+    color: #37474F;
+    text-decoration: none;
+}
+
+/* FORM PAGE */
+#formPage h2{
+    color: rgba(0, 0, 0, 0.5);
+}
+
+/* MODAL PAGE */
+#Modal{
+    color: #37474F;
 }

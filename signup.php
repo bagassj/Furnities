@@ -1,3 +1,41 @@
+<?php  
+
+// Lampirkan dbconfig 
+
+require_once "conn.php"; 
+
+if(isset($_POST['kirim'])){ 
+
+  $nama = $_POST['nama']; 
+
+  $email = $_POST['email']; 
+
+  $password = $_POST['password']; 
+
+  $alamat = $_POST['alamat'];
+
+  $nohp = $_POST['nohp'];
+
+  // Registrasi user baru 
+
+  if($user->register($nama, $email, $password, $alamat, $nohp)){ 
+
+    // Jika berhasil set variable success ke true 
+    header("location: admin/index.php");
+    $success = true; 
+
+  }else{ 
+
+    // Jika gagal, ambil pesan error 
+
+    $error = $user->getLastError(); 
+
+  } 
+
+} 
+
+?> 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,12 +45,12 @@
     <title>Furnities - Buy cheap and best furniture</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-sm bg-blue">
         <div class="container">
-            <a class="navbar-brand" href="#">Logo</a>
+            <a class="navbar-brand" href="index.php"><img src="assets/img/logo.png" alt="" style="width: 90px;"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -36,29 +74,29 @@
             <div class="col-6 px-4">
                 <h1 class="text-center">Selamat Datang</h1>
                 <h6 class="fw-normal text-center" style="letter-spacing: 1px;">Daftar Sekarang</h6>
-                <form class="my-5">
+                <form class="my-5" method="post">
                     <div class="form-outline mb-4">
-                        <input class="form-control form-control-md py-2" type="text" placeholder="Nama Lengkap">
+                        <input class="form-control form-control-md py-2" type="text" placeholder="Nama Lengkap" name="nama">
                     </div>
 
                     <div class="form-outline mb-4">
-                        <input class="form-control form-control-md py-2" type="email" placeholder="Email">
+                        <input class="form-control form-control-md py-2" type="email" placeholder="Email" name="email">
                     </div>
 
                     <div class="form-outline mb-4">
-                        <input class="form-control form-control-md py-2" type="password" placeholder="Password">
+                        <input class="form-control form-control-md py-2" type="password" placeholder="Password" name="password">
                     </div>
 
                     <div class="form-outline mb-4">
-                        <input class="form-control form-control-md py-2" type="text" placeholder="Alamat">
+                        <input class="form-control form-control-md py-2" type="text" placeholder="Alamat" name="alamat">
                     </div>
 
                     <div class="form-outline mb-4">
-                        <input class="form-control form-control-md py-2" type="text" placeholder="No. HP">
+                        <input class="form-control form-control-md py-2" type="text" placeholder="No. HP" name="nohp">
                     </div>
   
                     <div class="mx-auto mb-5">
-                        <button class="btn btn-dark btn-md px-5 py-2" type="button">DAFTAR</button>
+                        <button class="btn btn-md px-5 py-2" type="submit" name="kirim">DAFTAR</button>
                     </div>
                 </form>
             </div>
