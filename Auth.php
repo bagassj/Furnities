@@ -111,30 +111,31 @@ class Auth
                 }
             } 
             else {
+                $this->error = "Email atau Password Salah";
+                return false;
+                // $stmt = $this->db->prepare("SELECT * FROM customer WHERE email = :email");
 
-                $stmt = $this->db->prepare("SELECT * FROM customer WHERE email = :email");
+                // $stmt->bindParam(":email", $email);
 
-                $stmt->bindParam(":email", $email);
+                // $stmt->execute();
 
-                $stmt->execute();
+                // $data = $stmt->fetch();
 
-                $data = $stmt->fetch();
+                // if ($stmt->rowCount() > 0) {
 
-                if ($stmt->rowCount() > 0) {
-
-                    // jika password yang dimasukkan sesuai dengan yg ada di database 
+                //     // jika password yang dimasukkan sesuai dengan yg ada di database 
     
-                    if ($password == $data['password']) {
+                //     if ($password == $data['password']) {
     
-                        $_SESSION['user_session'] = $data['id'];
+                //         $_SESSION['user_session'] = $data['id'];
     
-                        return true;
-                    } else {
+                //         return true;
+                //     } else {
     
-                        $this->error = "Email atau Password Salah";
-                        return false;
-                    }
-                } 
+                //         $this->error = "Email atau Password Salah";
+                //         return false;
+                //     }
+                // } 
             }
         } catch (PDOException $e) {
 

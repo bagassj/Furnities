@@ -69,7 +69,7 @@ if (isset($_POST['kirim'])) {
                     </div>
                     <div class="text-center">
                         <span>Belum Memiliki Akun?</span><br>
-                        <a href="signup.html">Daftar</a>
+                        <a href="signup.php">Daftar</a>
                     </div>
                 </form>
             </div>
