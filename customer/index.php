@@ -31,13 +31,13 @@ $wood = new wood($con);
                         <a class="nav-link align-items-center" href="index.php">Beranda</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link align-items-center" href="#">Daftar Pesanan Jasa</a>
+                        <a class="nav-link align-items-center" href="#">Mulai Jual</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link align-items-center" href="#">Daftar Pesanan Barang</a>
+                        <a class="nav-link align-items-center" href="#">Keranjang</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link align-items-center" href="account.php">Akun</a>
+                        <a class="nav-link align-items-center" href="account.php">Profil</a>
                     </li>
                 </ul>
             </div>
@@ -52,7 +52,7 @@ $wood = new wood($con);
                 <button type="submit" class="btn">Cari</button>
             </div>
             <div class="col-2 d-grid gap-2">
-                <button type="submit" class="btn" onclick="location.href='addItem.php'">Tambah Barang</button>
+                <button type="submit" class="btn" onclick="location.href='#'">Custom Desain</button>
             </div>
         </section>
         <section id="catalogPage" class="row py-5">

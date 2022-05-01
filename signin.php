@@ -7,8 +7,13 @@ if (isset($_POST['kirim'])) {
 
     $password = $_POST['password'];
     if ($user->login($email, $password)) {
-
-        header("location: admin/index.php");
+        $lvl = $_SESSION['level'];
+        if($lvl =='admin'){
+            header("location: admin/index.php");
+        }
+        elseif($lvl =='customer'){
+            header("location: customer/index.php");
+        }
     } else {
         $error = $user->getLastError();
     }

@@ -44,13 +44,13 @@ if (isset($_GET['logout'])) {
                         <a class="nav-link align-items-center" href="index.php">Beranda</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link align-items-center" href="#">Daftar Pesanan Jasa</a>
+                        <a class="nav-link align-items-center" href="#">Mulai Jual</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link align-items-center" href="#">Daftar Pesanan Barang</a>
+                        <a class="nav-link align-items-center" href="#">Keranjang</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link align-items-center" href="account.php">Akun</a>
+                        <a class="nav-link align-items-center" href="account.php">Profil</a>
                     </li>
                 </ul>
             </div>

@@ -1,8 +1,8 @@
 <?php
 
     include_once '../conn.php';
-    include_once 'itemClass.php';
-    include_once 'woodClass.php';
+    include_once '../controller/itemClass.php';
+    include_once '../controller/woodClass.php';
 
     $item = new item($con);
     $wood = new wood($con);

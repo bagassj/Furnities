@@ -116,8 +116,10 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Meja Belajar</h5>&nbsp;&nbsp;&nbsp;
-                                    <a class="btn btn-prim" href="editItem.php?id=<?php echo($row['id']); ?>">UBAH</a>&nbsp;&nbsp;&nbsp;
-                                    <a class="btn btn-danger"  href="deleteItem.php?id=<?php echo($row['id']); ?>">HAPUS</a>
+                                    <?php if($_SESSION['level']=='admin'){ ?>
+                                        <a class="btn btn-prim" href="editItem.php?id=<?php echo($row['id']); ?>">UBAH</a>&nbsp;&nbsp;&nbsp;
+                                        <a class="btn btn-danger"  href="deleteItem.php?id=<?php echo($row['id']); ?>">HAPUS</a>
+                                    <?php } ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
@@ -133,6 +135,11 @@
                                                 <span><b>Jenis Kayu:</b> <?php echo($row['jenis_kayu']); ?></span><br>
                                                 <span><b>Deskripsi:</b> <?php echo($row['deskripsi']); ?></span><br>
                                             </div>
+                                            <?php if($_SESSION['level']=='customer'){ ?>
+                                            <div class="col-md-12 my-3 text-center">
+                                                <a class="btn btn-prim" href="#">Buat Pesanan</a>
+                                            </div>
+                                            <?php } ?>
                                         </div>
                                     </div>
                                 </div>

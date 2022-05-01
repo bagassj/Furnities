@@ -1,9 +1,13 @@
 <?php
 require_once "conn.php"; 
 if($user->isLoggedIn()){ 
-
-  header("location: admin/index.php"); //Redirect ke index 
-
+    $lvl = $_SESSION['level'];
+    if($lvl =='admin'){
+        header("location: admin/index.php");
+    }
+    elseif($lvl =='customer'){
+        header("location: customer/index.php");
+    }
 } 
 ?>
 <!DOCTYPE html>

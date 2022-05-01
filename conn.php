@@ -8,6 +8,6 @@
         echo $e->getMessage();
     }
 
-    include_once 'Auth.php';
+    include_once 'controller/Auth.php';
     $user = new Auth($con);
 ?> 

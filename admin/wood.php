@@ -1,7 +1,7 @@
 <?php
 require_once "../conn.php";
-include_once 'itemClass.php';
-include_once 'woodClass.php';
+include_once '../controller/itemClass.php';
+include_once '../controller/woodClass.php';
 
 $item = new item($con);
 $wood = new wood($con);
@@ -63,9 +63,6 @@ if (isset($_GET['logout'])) {
                     </li>
                     <li class="nav-item">
                         <a class="nav-link align-items-center" href="account.php">Akun</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-danger align-items-center" href="?logout">Logout</a>
                     </li>
                 </ul>
             </div>
