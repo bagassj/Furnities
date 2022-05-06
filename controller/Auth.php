@@ -36,7 +36,7 @@ class Auth
 
             //Masukkan user baru ke database 
 
-            $stmt = $this->db->prepare("INSERT INTO admin(nama_lengkap, alamat, no_hp, email, password) VALUES(:nama, :alamat, :nohp, :email, :pass)");
+            $stmt = $this->db->prepare("INSERT INTO customers(nama_lengkap, alamat, no_hp, email, password) VALUES(:nama, :alamat, :nohp, :email, :pass)");
 
             $stmt->bindParam(":nama", $nama);
 
