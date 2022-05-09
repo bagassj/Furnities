@@ -17,12 +17,21 @@
         $deskripsi = $_POST['deskripsi'];
         $nameFoto = $_FILES['file']['name'];
         $foto = $_FILES['file']['tmp_name'];
-        $location="../upload/".$nameFoto;
+        $temp = explode(".", $_FILES["file"]["name"]);
+        $newfilename = round(microtime(true)) . '.' . end($temp);
+        $location="../upload/".$newfilename;
+        $oldfile = $_POST['oldFile'];
 
-        move_uploaded_file($foto, $location);
-        if ($item->updateData($id, $nama, $harga, $jenisProduk, $jenisKayu, $nameFoto, $deskripsi)) {
-            header("location: index.php");
-        } 
+        if($nameFoto!="") {
+            move_uploaded_file($foto, $location);
+            if ($item->updateData($id, $nama, $harga, $jenisProduk, $jenisKayu, $newfilename, $deskripsi)) {
+                header("location: index.php");
+            } 
+        } else {
+            if ($item->updateData($id, $nama, $harga, $jenisProduk, $jenisKayu, $oldfile, $deskripsi)) {
+                header("location: index.php");
+            }
+        }
     }
     if (isset($_GET['logout'])) {
         $user->logout();
@@ -110,6 +119,7 @@
                     <label class="col-sm-2 col-form-label">Foto Produk:</label>
                     <div class="col-sm-10">
                         <input class="form-control" type="file" name="file">
+                        <input type="text" style="visibility: hidden;" name="oldFile" value="<?php echo $foto; ?>"></input>
                     </div>
                 </div>
                 <div class="row mb-3">

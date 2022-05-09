@@ -30,9 +30,18 @@
     display: flex;
     font-size: 10pt;
     color: #FFFFFF;
+    text-decoration: none !important;
 }
-.navbar-nav li a i{
-    font-size: 20pt;
+.navbar-nav #home a:hover {
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+}
+.navbar-nav li a:hover {
+    color: #FFFFFF !important;
+    text-decoration: underline !important;
+}
+.navbar-nav li a i {
+    font-size: 14pt;
 }
 
 /* WELCOME PAGE */

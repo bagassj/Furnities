@@ -83,7 +83,6 @@ if (isset($_GET['logout'])) {
                     <tr>
                         <th>ID</th>
                         <th>Nama Jenis</th>
-                        <th>Ubah Data</th>
                         <th>Hapus</th>
                     </tr>
                 </thead>
@@ -134,5 +133,27 @@ if (isset($_GET['logout'])) {
     $(document).ready(function() {
         $('#example').DataTable();
     } );
+
+    $(".remove").click(function(){
+        var id = $(this).parents("tr").attr("id");
+
+
+        if(confirm('Are you sure to remove this record ?'))
+        {
+            $.ajax({
+               url: 'deleteWood.php',
+               type: 'GET',
+               data: {id: id},
+               error: function() {
+                  alert('Something is wrong');
+               },
+               success: function(data) {
+                    // $("#"+id).remove();
+                    location.href
+                    alert("Record removed successfully");  
+               }
+            });
+        }
+    });
 </script>
 </html>

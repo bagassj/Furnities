@@ -29,17 +29,17 @@ if (isset($_GET['logout'])) {
     
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
+                <li class="nav-item">
                         <a class="nav-link align-items-center" href="index.php">Beranda</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link align-items-center" href="#">Mulai Jual</a>
+                        <a class="nav-link align-items-center" href="#">Daftar Pesanan Jasa</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link align-items-center" href="#">Keranjang</a>
+                        <a class="nav-link align-items-center" href="#">Daftar Pesanan Barang</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link align-items-center" href="account.php">Profil</a>
+                        <a class="nav-link align-items-center" href="account.php">Akun</a>
                     </li>
                 </ul>
             </div>

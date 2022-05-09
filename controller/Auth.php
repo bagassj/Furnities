@@ -80,68 +80,72 @@ class Auth
     public function login($email, $password)
 
     {
+        if($email=="" || $password==""){
+            echo "<script type='text/javascript'>alert('Email/Password ada yang kosong');</script>";
+        }
+        else{
+            try {
 
-        try {
+                // Ambil data dari database 
 
-            // Ambil data dari database 
+                $stmt = $this->db->prepare("SELECT * FROM admin WHERE email = :email");
 
-            $stmt = $this->db->prepare("SELECT * FROM admin WHERE email = :email");
+                $stmt->bindParam(":email", $email);
 
-            $stmt->bindParam(":email", $email);
+                $stmt->execute();
 
-            $stmt->execute();
+                $data = $stmt->fetch();
+                // Jika jumlah baris > 0 
 
-            $data = $stmt->fetch();
-            // Jika jumlah baris > 0 
+                if ($stmt->rowCount() > 0) {
 
-            if ($stmt->rowCount() > 0) {
-
-                // jika password yang dimasukkan sesuai dengan yg ada di database 
-
-                if ($password == $data['password']) {
-
-                    $_SESSION['user_session'] = $data['id'];
-                    $_SESSION['level'] = 'admin';
-
-                    return true;
-                } else {
-
-                    $this->error = "Email atau Password Salah";
-                    return false;
-                }
-            } 
-            else {
-                
-                // $this->error = "Email atau Password Salah";
-                // return false;
-                $stmtc = $this->db->prepare("SELECT * FROM customers WHERE email = :email");
-
-                $stmtc->bindParam(":email", $email);
-
-                $stmtc->execute();
-
-                $datac = $stmtc->fetch();
-
-                if ($stmtc->rowCount() > 0) {
                     // jika password yang dimasukkan sesuai dengan yg ada di database 
-    
-                    if ($password == $datac['password']) {
-    
-                        $_SESSION['user_session'] = $datac['id'];
-                        $_SESSION['level'] = 'customer';
-    
+
+                    if ($password == $data['password']) {
+
+                        $_SESSION['user_session'] = $data['id'];
+                        $_SESSION['level'] = 'admin';
+
                         return true;
                     } else {
+
                         $this->error = "Email atau Password Salah";
                         return false;
                     }
                 } 
+                else {
+                    
+                    // $this->error = "Email atau Password Salah";
+                    // return false;
+                    $stmtc = $this->db->prepare("SELECT * FROM customers WHERE email = :email");
+
+                    $stmtc->bindParam(":email", $email);
+
+                    $stmtc->execute();
+
+                    $datac = $stmtc->fetch();
+
+                    if ($stmtc->rowCount() > 0) {
+                        // jika password yang dimasukkan sesuai dengan yg ada di database 
+        
+                        if ($password == $datac['password']) {
+        
+                            $_SESSION['user_session'] = $datac['id'];
+                            $_SESSION['level'] = 'customer';
+        
+                            return true;
+                        } else {
+                            $this->error = "Email atau Password Salah";
+                            return false;
+                        }
+                    } 
+                }
+            } catch (PDOException $e) {
+
+                echo $e->getMessage();
+
+                return false;
             }
-        } catch (PDOException $e) {
-
-            echo $e->getMessage();
-
-            return false;
         }
     }
 

@@ -42,7 +42,7 @@ if (isset($_POST['kirim'])) {
     
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
+                    <li class="nav-item" id="home">
                         <a class="nav-link align-items-center" href="#">
                             <i class="fa-brands fa-instagram"></i>&nbsp;&nbsp;@furnities_meubel
                         </a>

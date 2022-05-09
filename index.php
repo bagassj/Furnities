@@ -1,5 +1,9 @@
 <?php
-require_once "conn.php"; 
+require_once "conn.php";
+include_once "controller/itemClass.php";
+
+$item = new item($con);
+
 if($user->isLoggedIn()){ 
     $lvl = $_SESSION['level'];
     if($lvl =='admin'){
@@ -31,8 +35,8 @@ if($user->isLoggedIn()){
     
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link align-items-center" href="#">
+                    <li class="nav-item" id="home">
+                        <a class="align-items-center" href="#">
                             <i class="fa-brands fa-instagram"></i>&nbsp;&nbsp;@furnties_meubel
                         </a>
                     </li>
@@ -47,28 +51,19 @@ if($user->isLoggedIn()){
             </div>
             <div class="col-6">
                 <h1>Selamat Datang</h1>
-                <p class="my-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, necessitatibus! Ipsam reprehenderit magni animi! At nemo qui obcaecati rerum, voluptatum maiores laudantium quidem! Distinctio nulla doloremque, accusamus nesciunt ipsam perferendis. Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, necessitatibus! Ipsam reprehenderit magni animi! At nemo qui obcaecati rerum, voluptatum maiores laudantium quidem! Distinctio nulla doloremque, accusamus nesciunt ipsam perferendis.</p>
+                <p class="my-4">Selamat datang di Furnity! Cari meja, kursi, lemari, atau bahkan dekorasi rumah berbahan kayu? Kami menyediakan segala kebutuhan anda. Tersedia berbagai design dan bisa custom lho!</p>
                 <div class="w-100 text-center">
-                    <button type="button" class="btn btn-md px-5 py-2" onclick="location.href='signin.php'">Sign In</button>
+                    <button type="button" class="btn btn-md px-5 py-2" onclick="location.href='signin.php'">Masuk</button>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <button type="button" class="btn btn-md px-5 py-2" onclick="location.href='signup.php'">Sign Up</button>
+                    <button type="button" class="btn btn-md px-5 py-2" onclick="location.href='signup.php'">Daftar</button>
                 </div>
             </div>
         </section>
         <section id="catalogPage" class="row mt-5 py-5">
             <h3 class="mb-4">Katalog kami</h3>
-            <div class="col-3">
-                <div class="catalogImg" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg');"></div>
-            </div>
-            <div class="col-3">
-                <div class="catalogImg" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg');"></div>
-            </div>
-            <div class="col-3">
-                <div class="catalogImg" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg');"></div>
-            </div>
-            <div class="col-3">
-                <div class="catalogImg" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg');"></div>
-            </div>
+            <?php
+            $item->viewDataCatalog();
+            ?>
         </section>
     </div>
 </body>

@@ -14,10 +14,12 @@ if(isset($_POST['addItem'])){
     $deskripsi = $_POST['deskripsi'];
     $nameFoto = $_FILES['file']['name'];
     $foto = $_FILES['file']['tmp_name'];
-    $location="../upload/".$nameFoto;
+    $temp = explode(".", $_FILES["file"]["name"]);
+    $newfilename = round(microtime(true)) . '.' . end($temp);
+    $location="../upload/".$newfilename;
 
     move_uploaded_file($foto, $location);
-    if($item->insertData($nama, $harga, $jenisProduk, $jenisKayu, $nameFoto, $deskripsi)){ 
+    if($item->insertData($nama, $harga, $jenisProduk, $jenisKayu, $newfilename, $deskripsi)){ 
         header("location: index.php");
         $success = true; 
 

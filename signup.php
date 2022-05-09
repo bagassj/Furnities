@@ -57,7 +57,7 @@ if(isset($_POST['kirim'])){
     
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
+                    <li class="nav-item" id="home">
                         <a class="nav-link align-items-center" href="#">
                             <i class="fa-brands fa-instagram"></i>&nbsp;&nbsp;@furnties_meubel
                         </a>
@@ -76,23 +76,23 @@ if(isset($_POST['kirim'])){
                 <h6 class="fw-normal text-center" style="letter-spacing: 1px;">Daftar Sekarang</h6>
                 <form class="my-5" method="post">
                     <div class="form-outline mb-4">
-                        <input class="form-control form-control-md py-2" type="text" placeholder="Nama Lengkap" name="nama">
+                        <input class="form-control form-control-md py-2" type="text" placeholder="Nama Lengkap" required name="nama">
                     </div>
 
                     <div class="form-outline mb-4">
-                        <input class="form-control form-control-md py-2" type="email" placeholder="Email" name="email">
+                        <input class="form-control form-control-md py-2" type="email" placeholder="Email" required name="email">
                     </div>
 
                     <div class="form-outline mb-4">
-                        <input class="form-control form-control-md py-2" type="password" placeholder="Password" name="password">
+                        <input class="form-control form-control-md py-2" type="password" placeholder="Password" required name="password">
                     </div>
 
                     <div class="form-outline mb-4">
-                        <input class="form-control form-control-md py-2" type="text" placeholder="Alamat" name="alamat">
+                        <input class="form-control form-control-md py-2" type="text" placeholder="Alamat" required name="alamat">
                     </div>
 
                     <div class="form-outline mb-4">
-                        <input class="form-control form-control-md py-2" type="text" placeholder="No. HP" name="nohp">
+                        <input class="form-control form-control-md py-2" type="text" placeholder="No. HP" required name="nohp">
                     </div>
   
                     <div class="mx-auto mb-5">

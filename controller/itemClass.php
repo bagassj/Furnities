@@ -102,6 +102,23 @@
                 }
             } 
         }
+        public function viewDataCatalog()
+        {
+            $stmt = $this->db->prepare("SELECT * FROM products");
+
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    ?>
+                    <div class="col-3">
+                        <div class="catalogImg" style="background-image: url('upload/<?php echo($row['foto']); ?>');"></div>
+                    </div>
+
+             <?php
+                }
+            } 
+        }
         public function viewDataModal()
         {
             $stmt = $this->db->prepare("SELECT products.id,nama_produk,deskripsi,harga,foto,jenis_product.nama_jenis as jenis,jenis_kayu.nama_jenis as jenis_kayu FROM products JOIN jenis_product ON products.jenis_product_id=jenis_product.id JOIN jenis_kayu ON products.jenis_kayu_id=jenis_kayu.id");
@@ -118,7 +135,7 @@
                                     <h5 class="modal-title" id="exampleModalLabel">Meja Belajar</h5>&nbsp;&nbsp;&nbsp;
                                     <?php if($_SESSION['level']=='admin'){ ?>
                                         <a class="btn btn-prim" href="editItem.php?id=<?php echo($row['id']); ?>">UBAH</a>&nbsp;&nbsp;&nbsp;
-                                        <a class="btn btn-danger"  href="deleteItem.php?id=<?php echo($row['id']); ?>">HAPUS</a>
+                                        <a class="btn btn-danger" onClick="javascript: return confirm('Apakah anda yakin ingin menghapus?');"  href="deleteItem.php?id=<?php echo($row['id']); ?>">HAPUS</a>
                                     <?php } ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>

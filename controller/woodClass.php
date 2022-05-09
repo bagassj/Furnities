@@ -34,18 +34,14 @@ class wood{
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 ?>
 
-                <tr>
+                <tr id='<?php echo($row['id']); ?>'>
 
                     <td><?php echo($row['id']); ?></td>
 
                     <td><?php echo($row['nama_jenis']); ?></td>
 
                     <td align="center">
-                        <button type="button" class="btn btn-prim btn-sm">Ubah</button>
-                    </td>
-
-                    <td align="center">
-                        <button type="button" class="btn btn-danger btn-sm">HAPUS</button>
+                        <a type="button" class="btn btn-danger btn-sm" onClick="javascript: return confirm('Apakah anda yakin ingin menghapus?');" href="deleteWood.php?id=<?php echo($row['id']); ?>">HAPUS</a>
                     </td>
 
                 </tr>
@@ -83,6 +79,14 @@ class wood{
             <option>Tidak ada data</option>
         <?php
         }
+    }
+    public function deleteData($id)
+    {
+        $stmt = $this->db->prepare("DELETE FROM jenis_kayu WHERE id=:id");
+
+        $stmt->bindparam(":id", $id);
+
+        $stmt->execute();
     }
 }
 ?>
