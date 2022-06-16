@@ -27,22 +27,7 @@ if (isset($_GET['logout'])) {
                 <span class="navbar-toggler-icon"></span>
             </button>
     
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav">
-                <li class="nav-item">
-                        <a class="nav-link align-items-center" href="index.php">Beranda</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link align-items-center" href="#">Daftar Pesanan Jasa</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link align-items-center" href="#">Daftar Pesanan Barang</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link align-items-center" href="account.php">Akun</a>
-                    </li>
-                </ul>
-            </div>
+            <?php include_once 'cNavbar.php'; ?>
         </div>
     </nav>
     <div class="container">

@@ -4,31 +4,7 @@ include_once '../controller/itemClass.php';
 include_once '../controller/woodClass.php';
 
 $item = new item($con);
-$wood = new wood($con);
-
-if(isset($_POST['addWood'])){ 
-
-    $nama = $_POST['nama'];
-
-    if($wood->insertData($nama)){ 
-
-        // Jika berhasil set variable success ke true 
-        header("location: wood.php");
-        $success = true; 
-
-    }else{ 
-
-        // Jika gagal, ambil pesan error 
-
-        $error = $user->getLastError(); 
-
-    } 
-
-}
-if (isset($_GET['logout'])) {
-    $user->logout();
-    header("location: ../index.php");
-}
+$wood = new wood($con); 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,22 +26,8 @@ if (isset($_GET['logout'])) {
                 <span class="navbar-toggler-icon"></span>
             </button>
     
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link align-items-center" href="index.php">Beranda</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link align-items-center" href="#">Daftar Pesanan Jasa</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link align-items-center" href="#">Daftar Pesanan Barang</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link align-items-center" href="account.php">Akun</a>
-                    </li>
-                </ul>
-            </div>
+            
+            <?php include_once 'aNavbar.php'; ?>
         </div>
     </nav>
     <div class="container">

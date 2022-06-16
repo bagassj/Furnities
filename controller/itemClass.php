@@ -37,6 +37,34 @@
                 return false;
             }
         }
+        public function customProduk($alamat ,$jenisKayu, $jenisProduk, $harga, $keterangan, $foto, $isCustom)
+        {
+            try {
+                $stmt = $this->db->prepare("INSERT INTO products(jenis_product_id, jenis_kayu_id, deskripsi, harga, foto, isCustom) VALUES(:jenisProduk, :jenisKayu, :keterangan, :harga, :foto, :isCustom)");
+
+                $stmt->bindparam(":jenisProduk", $jenisProduk);
+
+                $stmt->bindparam(":jenisKayu", $jenisKayu);
+
+                $stmt->bindparam(":keterangan", $keterangan);
+
+                $stmt->bindparam(":harga", $harga);
+
+                $stmt->bindparam(":foto", $foto);
+
+                $stmt->bindparam(":isCustom", $isCustom);
+
+                $stmt->execute();
+
+                $id = $this->db->lastInsertId();  
+
+                return $id;
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+
+                return false;
+            }
+        }
         public function viewDataSelect()
         {
             $stmt = $this->db->prepare("SELECT * FROM jenis_product");
@@ -79,7 +107,7 @@
 
         public function viewData()
         {
-            $stmt = $this->db->prepare("SELECT * FROM products");
+            $stmt = $this->db->prepare("SELECT * FROM products WHERE isCustom = 0");
 
             $stmt->execute();
 
@@ -104,7 +132,7 @@
         }
         public function viewDataCatalog()
         {
-            $stmt = $this->db->prepare("SELECT * FROM products");
+            $stmt = $this->db->prepare("SELECT * FROM products WHERE isCustom = 0");
 
             $stmt->execute();
 
@@ -121,7 +149,7 @@
         }
         public function viewDataModal()
         {
-            $stmt = $this->db->prepare("SELECT products.id,nama_produk,deskripsi,harga,foto,jenis_product.nama_jenis as jenis,jenis_kayu.nama_jenis as jenis_kayu FROM products JOIN jenis_product ON products.jenis_product_id=jenis_product.id JOIN jenis_kayu ON products.jenis_kayu_id=jenis_kayu.id");
+            $stmt = $this->db->prepare("SELECT products.id,nama_produk,deskripsi,harga,foto,jenis_product.nama_jenis as jenis,jenis_kayu.nama_jenis as jenis_kayu FROM products JOIN jenis_product ON products.jenis_product_id=jenis_product.id JOIN jenis_kayu ON products.jenis_kayu_id=jenis_kayu.id WHERE isCustom = 0");
 
             $stmt->execute();
 
@@ -154,8 +182,11 @@
                                             </div>
                                             <?php if($_SESSION['level']=='customer'){ ?>
                                             <div class="col-md-12 my-3 text-center">
-                                                <a class="btn btn-prim" href="#">Buat Pesanan</a>
-                                            </div>
+                                                <form method="post" enctype="multipart/form-data">
+                                                    <input type="hidden" name="id" value="<?php echo($row['id']); ?>"/>
+                                                    <button class="btn btn-prim" name="addOrder">Buat Pesanan</button>
+                                                </form>
+                                            </div> 
                                             <?php } ?>
                                         </div>
                                     </div>

@@ -1,40 +1,34 @@
 <?php
-require_once "../conn.php"; 
+require_once "../conn.php";
 include_once '../controller/itemClass.php';
 include_once '../controller/woodClass.php';
+include_once '../controller/serviceClass.php';
 
 $item = new item($con);
 $wood = new wood($con);
-if(isset($_POST['addItem'])){ 
+$service = new service($con);
 
-    $nama = $_POST['nama'];
-    $harga = $_POST['harga'];
-    $jenisProduk = $_POST['jenisProduk'];
+if(isset($_POST['save'])){
+    $id = $_SESSION['user_session'];
+    $alamat = $_POST['alamat'];
     $jenisKayu = $_POST['jenisKayu'];
-    $deskripsi = $_POST['deskripsi'];
+    $diameter = $_POST['diameter'];
+    $tinggi = $_POST['tinggi'];
+    $harga = $_POST['harga'];
+    $keterangan = $_POST['keterangan'];
     $nameFoto = $_FILES['file']['name'];
     $foto = $_FILES['file']['tmp_name'];
     $temp = explode(".", $_FILES["file"]["name"]);
     $newfilename = round(microtime(true)) . '.' . end($temp);
     $location="../upload/".$newfilename;
+    $tanggal = date("Y-m-d");
 
     move_uploaded_file($foto, $location);
-    if($item->insertData($nama, $harga, $jenisProduk, $jenisKayu, $newfilename, $deskripsi)){ 
-        header("location: index.php");
-        $success = true; 
-
-    }else{ 
-        $error = $user->getLastError(); 
-    } 
-
-}
-if (isset($_GET['logout'])) {
-    $user->logout();
-    header("location: ../index.php");
+    $service->insertData($id, $alamat, $jenisKayu, $diameter, $tinggi, $harga, $keterangan, $newfilename, $tanggal);
 }
 ?>
 <!DOCTYPE html>
-<html lang="en"> 
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -52,25 +46,22 @@ if (isset($_GET['logout'])) {
                 <span class="navbar-toggler-icon"></span>
             </button>
     
-            
-            <?php include_once 'aNavbar.php'; ?>
+            <?php include_once 'cNavbar.php'; ?>
         </div>
     </nav>
     <div class="container">
-        <section id="linkPage" class="row g-0 mt-5 pt-5">
-            <div class="col-6 d-grid">
-                <button type="submit" class="btn btn-prim rounded-0" onclick="location.href='addItem.php'">Tambahkan data barang</button>
-            </div>
-            <div class="col-6 d-grid">
-                <button type="submit" class="btn btn-green rounded-0" onclick="location.href='wood.php'">Data jenis kayu</button>
-            </div>
-        </section>
         <div id="formPage" class="row mt-5">
-            <form method="post" enctype="multipart/form-data">
+            <div class="col-8">
+                <h2>Punya kayu mentah untuk dijual? Jual kayumu disini!</h2>
+            </div>
+            <div class="col-4 text-end">
+                <button type="button" class="btn btn-prim w" onclick="location.href='service.php'">LIHAT DAFTAR TRANSAKSI</button>
+            </div>
+            <form method="post" class="mt-5" enctype="multipart/form-data">
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">Nama Produk:</label>
+                    <label class="col-sm-2 col-form-label">Alamat:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="nama">
+                        <input type="text" class="form-control" name="alamat">
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -80,23 +71,25 @@ if (isset($_GET['logout'])) {
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">Jenis Produk:</label>
+                    <label class="col-sm-2 col-form-label">Jenis Kayu:</label>
                     <div class="col-sm-10">
-                        <select class="form-select" name="jenisProduk">
-                            <?php
-                            $item->viewDataSelect();
-                            ?>
+                        <select class="form-select" aria-label="Default select example" name="jenisKayu">
+                        <?php
+                        $wood->viewDataSelect();
+                        ?>
                         </select>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">Jenis Kayu:</label>
+                    <label class="col-sm-2 col-form-label">Diameter Kayu:</label>
                     <div class="col-sm-10">
-                        <select class="form-select" name="jenisKayu">
-                            <?php
-                            $wood->viewDataSelect();
-                            ?>
-                        </select>
+                        <input type="text" class="form-control" name="diameter">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Tinggi Kayu:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="tinggi">
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -106,19 +99,23 @@ if (isset($_GET['logout'])) {
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">Deskripsi Produk:</label>
+                    <label class="col-sm-2 col-form-label">Keterangan:</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" rows="5" style="resize: none" name="deskripsi"></textarea>
+                        <textarea class="form-control" rows="5" style="resize: none" name="keterangan"></textarea>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col text-center">
-                        <button type="submit" class="btn btn-prim" name="addItem">Tambahkan Data</button>
+                    <div class="col-12 text-center">
+                        <button type="submit" class="btn btn-prim" name="save">Buat Pesanan</button>
+                    </div>
+                    <div class="col-4 text-start">
+                        <span class="text-danger">* Menerima pemesanan jasa penebangan kayu khusus untuk wilayah jember</span>
                     </div>
                 </div>
             </form>
         </div>
     </div>
+
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

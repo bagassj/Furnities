@@ -1,18 +1,8 @@
 <?php
 require_once "../conn.php";
-include_once '../controller/itemClass.php';
-include_once '../controller/woodClass.php';
 include_once '../controller/orderClass.php';
 
-$item = new item($con);
-$wood = new wood($con);
 $order = new order($con);
-
-if(isset($_POST['addOrder'])){
-    $idCustomer = $_SESSION['user_session'];
-    $idItem = $_POST['id'];
-    $order->addOrder($idCustomer, $idItem);
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,6 +14,7 @@ if(isset($_POST['addOrder'])){
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-sm bg-blue">
@@ -33,41 +24,39 @@ if(isset($_POST['addOrder'])){
                 <span class="navbar-toggler-icon"></span>
             </button>
     
-            <?php include_once 'cNavbar.php'; ?>
+            
+            <?php include_once 'aNavbar.php'; ?>
         </div>
     </nav>
     <div class="container">
-        <section id="welcomePage" class="row mt-5 pt-5">
-            <div class="col-9">
-                <input type="text" class="form-control">
-            </div>
-            <div class="col-1 d-grid gap-2">
-                <button type="submit" class="btn">Cari</button>
-            </div>
-            <div class="col-2 d-grid gap-2">
-                <button type="submit" class="btn" onclick="location.href='customOrder.php'">Custom Desain</button>
-            </div>
-        </section>
-        <section id="catalogPage" class="row py-5">
-            <div class="col-12 pb-5 text-center">
-                <span class="px-3"><a href="#">Meja</a></span>
-                <span class="px-3"><a href="#">Kursi</a></span>
-                <span class="px-3"><a href="#">Lemari</a></span>
-                <span class="px-3"><a href="#">Ranjang</a></span>
-                <span class="px-3"><a href="#">Dekorasi</a></span>
-                <span class="px-3"><a href="#">Lain-lain</a></span>
-            </div>
-            <?php
-            $item->viewData();
-            ?>
+        <section id="dataPage" class="row g-0 mt-5 pt-5">
+            <table id="example" class="table table-bordered" style="width:100%"> 
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nama Customer</th>
+                        <th>Product ID</th>
+                        <th>Lokasi Tujuan</th>
+                        <th>Tanggal</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $order->viewData();
+                    ?>
+                </tbody>
+            </table>
         </section>
     </div>
-    
-    <?php
-    $item->viewDataModal();
-    ?>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/8da538daa2.js" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable();
+    } );
+</script>
 </html>

@@ -46,7 +46,7 @@
 
 /* WELCOME PAGE */
 #welcomePage .image{
-    background-image: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg');
+    background-image: url('../img/welcome.png');
     background-size: cover;
     background-position: center;
     width: 100%;
@@ -73,12 +73,19 @@
 }
 
 /* CATALOG PAGE */
+#catalogPage .col-2 .card{
+    background-size: cover;
+    background-position: center;
+    height: 191px;
+    /* height: 100%; */
+}
 #catalogPage .catalogImg{
     background-size: cover;
     background-position: center;
     width: 100%;
     height: 100%;
 }
+
 #catalogPage .catalogImg::before{
     content: "";
     display: block;

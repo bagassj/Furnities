@@ -1,17 +1,11 @@
 <?php
 require_once "../conn.php";
-include_once '../controller/itemClass.php';
-include_once '../controller/woodClass.php';
 include_once '../controller/orderClass.php';
 
-$item = new item($con);
-$wood = new wood($con);
 $order = new order($con);
-
-if(isset($_POST['addOrder'])){
-    $idCustomer = $_SESSION['user_session'];
-    $idItem = $_POST['id'];
-    $order->addOrder($idCustomer, $idItem);
+if(isset($_POST['save'])){
+    $status = $_POST['status'];
+    $order->setStatus($_GET['id'], $status);
 }
 ?>
 <!DOCTYPE html>
@@ -33,39 +27,13 @@ if(isset($_POST['addOrder'])){
                 <span class="navbar-toggler-icon"></span>
             </button>
     
-            <?php include_once 'cNavbar.php'; ?>
+            
+            <?php include_once 'aNavbar.php'; ?>
         </div>
     </nav>
     <div class="container">
-        <section id="welcomePage" class="row mt-5 pt-5">
-            <div class="col-9">
-                <input type="text" class="form-control">
-            </div>
-            <div class="col-1 d-grid gap-2">
-                <button type="submit" class="btn">Cari</button>
-            </div>
-            <div class="col-2 d-grid gap-2">
-                <button type="submit" class="btn" onclick="location.href='customOrder.php'">Custom Desain</button>
-            </div>
-        </section>
-        <section id="catalogPage" class="row py-5">
-            <div class="col-12 pb-5 text-center">
-                <span class="px-3"><a href="#">Meja</a></span>
-                <span class="px-3"><a href="#">Kursi</a></span>
-                <span class="px-3"><a href="#">Lemari</a></span>
-                <span class="px-3"><a href="#">Ranjang</a></span>
-                <span class="px-3"><a href="#">Dekorasi</a></span>
-                <span class="px-3"><a href="#">Lain-lain</a></span>
-            </div>
-            <?php
-            $item->viewData();
-            ?>
-        </section>
+        <?php $order->viewEditDataByID($_GET['id']); ?>
     </div>
-    
-    <?php
-    $item->viewDataModal();
-    ?>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
