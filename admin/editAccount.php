@@ -48,31 +48,31 @@ if (isset($_GET['logout'])) {
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label">Nama Lengkap:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="nama" value="<?php echo $nama_lengkap; ?>">
+                        <input type="text" class="form-control" name="nama" value="<?php echo $nama_lengkap; ?>" required>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label">Alamat:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="alamat" value="<?php echo $alamat; ?>">
+                        <input type="text" class="form-control" name="alamat" value="<?php echo $alamat; ?>" required>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label">Email:</label>
                     <div class="col-sm-10">
-                        <input type="email" class="form-control" name="email" value="<?php echo $email; ?>">
+                        <input type="email" class="form-control" name="email" value="<?php echo $email; ?>" required>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label">Password:</label>
                     <div class="col-sm-10">
-                        <input type="password" class="form-control" name="password" value="<?php echo $password; ?>">
+                        <input type="password" class="form-control" name="password" value="<?php echo $password; ?>" minlength="8" required>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label">No. HP:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="noHp" value="<?php echo $no_hp; ?>">
+                        <input type="text" class="form-control" name="noHp" value="<?php echo $no_hp; ?>" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" required>
                     </div>
                 </div>
                 <div class="row">

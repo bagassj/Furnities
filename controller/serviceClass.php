@@ -7,7 +7,7 @@
         {
             $this->db = $con;
         }
-        public function viewData()
+        public function viewData() 
         {
             $stmt = $this->db->prepare("SELECT services.id AS ID, nama_lengkap, nama_jenis, diameter, tinggi, harga, keterangan, status_pesanan FROM services JOIN customers ON services.customer_id = customers.id JOIN jenis_kayu ON services.jenis_kayu_id = jenis_kayu.id");
 

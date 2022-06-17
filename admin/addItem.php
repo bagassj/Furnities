@@ -70,13 +70,13 @@ if (isset($_GET['logout'])) {
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label">Nama Produk:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="nama">
+                        <input type="text" class="form-control" name="nama" required>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label">Harga:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="harga">
+                        <input type="text" class="form-control" name="harga" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" required>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -102,13 +102,13 @@ if (isset($_GET['logout'])) {
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label">Foto Produk:</label>
                     <div class="col-sm-10">
-                        <input class="form-control" type="file" name="file">
+                        <input class="form-control" type="file" name="file" accept="image/*" required>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label">Deskripsi Produk:</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" rows="5" style="resize: none" name="deskripsi"></textarea>
+                        <textarea class="form-control" rows="5" style="resize: none" name="deskripsi" required></textarea>
                     </div>
                 </div>
                 <div class="row">

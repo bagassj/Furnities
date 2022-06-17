@@ -42,7 +42,7 @@
 
         public function viewData()
         {
-            $stmt = $this->db->prepare("SELECT orders.id AS ID, nama_lengkap, product_id, lokasi_tujuan, tanggal, status_pesanan FROM orders JOIN customers ON orders.customer_id = customers.id");
+            $stmt = $this->db->prepare("SELECT orders.id AS ID, nama_lengkap, product_id, lokasi_tujuan, tanggal, status_pesanan FROM orders JOIN customers ON orders.customer_id = customers.id WHERE status_pesanan IS NOT NULL");
 
             $stmt->execute();
 
@@ -239,7 +239,7 @@
                                             <form method="post" enctype="multipart/form-data">
                                                 <div class="form-group">
                                                     <label for="exampleFormControlTextarea1">Masukan alamat tujuan pengiriman: </label>
-                                                    <textarea class="form-control" name="alamat" id="exampleFormControlTextarea1" rows="4" style="resize: none"></textarea>
+                                                    <textarea class="form-control" name="alamat" id="exampleFormControlTextarea1" rows="4" style="resize: none" required></textarea>
                                                 </div>
                                                 <div class="col-md-12 my-3 text-center">
                                                         <input type="hidden" name="id" value="<?php echo($row['id']); ?>"/>

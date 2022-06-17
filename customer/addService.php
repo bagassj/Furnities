@@ -61,13 +61,13 @@ if(isset($_POST['save'])){
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label">Alamat:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="alamat">
+                        <input type="text" class="form-control" name="alamat" required>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label">Harga:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="harga">
+                        <input type="text" class="form-control" name="harga" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" required>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -81,21 +81,21 @@ if(isset($_POST['save'])){
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">Diameter Kayu:</label>
+                    <label class="col-sm-2 col-form-label">Diameter Kayu(cm):</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="diameter">
+                        <input type="text" class="form-control" name="diameter" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" required>
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">Tinggi Kayu:</label>
+                    <label class="col-sm-2 col-form-label">Tinggi Kayu(cm):</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="tinggi">
+                        <input type="text" class="form-control" name="tinggi" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" required>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label">Foto Produk:</label>
                     <div class="col-sm-10">
-                        <input class="form-control" type="file" name="file">
+                        <input class="form-control" type="file" name="file" accept="image/*" required>
                     </div>
                 </div>
                 <div class="row mb-3">

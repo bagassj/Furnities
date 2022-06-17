@@ -5,6 +5,10 @@ include_once '../controller/woodClass.php';
 
 $item = new item($con);
 $wood = new wood($con); 
+if(isset($_POST['addWood'])){
+    $name = $_POST['nama'];
+    $wood->insertData($name);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -71,13 +75,13 @@ $wood = new wood($con);
                             <div class="row">
                                 <label class="col-sm-4 col-form-label">Jenis Kayu:</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="nama">
+                                    <input type="text" class="form-control" name="nama" required>
                                 </div>
                             </div>
                             
                             <div class="row mt-3">
                                 <div class="col text-center">
-                                    <button type="submit" class="btn btn-prim" name="addWood" data-bs-toggle="modal" data-bs-target="#Modal">Tambahkan Data</button>
+                                    <button type="submit" class="btn btn-prim" name="addWood">Tambahkan Data</button>
                                 </div>
                             </div>
                         </form>

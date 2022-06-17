@@ -84,7 +84,7 @@ if(isset($_POST['kirim'])){
                     </div>
 
                     <div class="form-outline mb-4">
-                        <input class="form-control form-control-md py-2" type="password" placeholder="Password" required name="password">
+                        <input class="form-control form-control-md py-2" type="password" placeholder="Password" minlength="8" required name="password">
                     </div>
 
                     <div class="form-outline mb-4">
@@ -92,11 +92,11 @@ if(isset($_POST['kirim'])){
                     </div>
 
                     <div class="form-outline mb-4">
-                        <input class="form-control form-control-md py-2" type="text" placeholder="No. HP" required name="nohp">
+                        <input class="form-control form-control-md py-2" type="text" placeholder="No. HP" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" required name="nohp">
                     </div>
   
                     <div class="mx-auto mb-5">
-                        <button class="btn btn-md px-5 py-2" type="submit" name="kirim">DAFTAR</button>
+                        <button class="btn btn-md px-5 py-2" type="submit" name="kirim">DAFTAR</button> 
                     </div>
                 </form>
             </div>
