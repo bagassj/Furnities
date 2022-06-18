@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 16, 2022 at 05:08 PM
+-- Generation Time: Jun 18, 2022 at 05:24 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.28
 
@@ -65,7 +65,10 @@ CREATE TABLE `customers` (
 INSERT INTO `customers` (`id`, `nama_lengkap`, `alamat`, `no_hp`, `email`, `password`) VALUES
 (1, 'Customer1', 'dwawad', '0872477247', 'customer1@gmail.com', '123'),
 (2, 'Customer2', 'adawda', '11234114141', 'customer2@gmail.com', '123'),
-(4, 'Dion Alif', 'Jl Letjen S Parman', 'IQWY', 'dion@gmail.com', '12345678');
+(4, 'Dion Alif', 'Jl Letjen S Parman', 'IQWY', 'dion@gmail.com', '12345678'),
+(5, 'a', 'a', '5', 'a@a', 'a'),
+(7, 'Bagas Septian Jasika', 'Jalan Rambutan', '087824215525', 'bagas@gmail.com', 'bagas123'),
+(8, 'tes', 'a', '10192450821', 'tes@g.com', '12345678');
 
 -- --------------------------------------------------------
 
@@ -87,7 +90,8 @@ INSERT INTO `jenis_kayu` (`id`, `nama_jenis`) VALUES
 (5, 'Kayu Mahogani'),
 (6, 'Kayu Trembesi'),
 (7, 'Kayu Jati Belanda'),
-(8, 'Kayu Sungkai');
+(8, 'Kayu Sungkai'),
+(11, 'Kayu Cemara');
 
 -- --------------------------------------------------------
 
@@ -131,7 +135,10 @@ CREATE TABLE `orders` (
 
 INSERT INTO `orders` (`id`, `customer_id`, `admin_id`, `product_id`, `lokasi_tujuan`, `status_pesanan`, `tanggal`) VALUES
 (2, 1, NULL, 2, 'Tes', 'Selesai', '2022-06-16 11:28:08'),
-(3, 1, NULL, 6, 'w', 'Menunggu Konfirmasi', '2022-06-16 08:30:26');
+(3, 1, NULL, 6, 'w', 'Menunggu Konfirmasi', '2022-06-16 08:30:26'),
+(4, 1, NULL, 4, NULL, NULL, '2022-06-17 07:31:44'),
+(7, 7, NULL, 7, 'w', 'Menunggu Konfirmasi', '2022-06-18 02:12:57'),
+(8, 7, NULL, 4, NULL, NULL, '2022-06-18 03:22:08');
 
 -- --------------------------------------------------------
 
@@ -158,7 +165,8 @@ INSERT INTO `products` (`id`, `jenis_product_id`, `jenis_kayu_id`, `nama_produk`
 (2, 1, 1, 'Meja Ruang Tamu', '-', 120000, '1655344349.png', 0),
 (3, 1, 1, 'Meja Makan', '-', 450000, '1652080593.jpg', 0),
 (4, 1, 1, 'Meja Belajar', '-', 150000, '1652080624.jpg', 0),
-(6, 2, 6, NULL, 'w', 150000, '1655368227.png', 1);
+(6, 2, 6, NULL, 'w', 150000, '1655368227.png', 1),
+(7, 1, 1, NULL, '', 150000, '1655518378.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -185,7 +193,8 @@ CREATE TABLE `services` (
 --
 
 INSERT INTO `services` (`id`, `customer_id`, `alamat`, `jenis_kayu_id`, `diameter`, `tinggi`, `tanggal`, `harga`, `keterangan`, `foto`, `status_pesanan`) VALUES
-(2, 1, 'wad', 5, 12, 221, '2022-06-16', 21, 'adwa', '1655363857.jpg', 'Ditolak');
+(2, 1, 'wad', 5, 12, 221, '2022-06-16', 21, 'adwa', '1655363857.jpg', 'Ditolak'),
+(4, 7, 'Jl Letjen S Parman', 7, 2, 280, '2022-06-18', 150000, '-', '1655518557.jpeg', NULL);
 
 --
 -- Indexes for dumped tables
@@ -254,13 +263,13 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `jenis_kayu`
 --
 ALTER TABLE `jenis_kayu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `jenis_product`
@@ -272,19 +281,19 @@ ALTER TABLE `jenis_product`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
