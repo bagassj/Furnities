@@ -86,6 +86,32 @@
             }
         }
 
+        
+        public function viewDataFilter()
+        {
+            $stmt = $this->db->prepare("SELECT * FROM jenis_product");
+    
+            $stmt->execute();
+    
+            if ($stmt->rowCount() > 0) {
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                ?>
+                    <div class="col-1">
+                        <form method="post">
+                            <input type="hidden" name="filter" value="<?php echo($row['id']); ?>">
+                            <button type="submit" class="btn btn-primary-outline bg-transparent" name="btnFilter"><?php echo($row['nama_jenis']); ?></button>
+                        </form>
+                    </div>
+    
+                <?php
+                }
+            } else {
+            ?>
+                <option>Tidak ada data</option>
+            <?php
+            }
+        }
+
         ### End : fungsi insert data ke database ###
 
         ### Start : fungsi ambil data dari database ###
@@ -105,30 +131,86 @@
 
         ### Start : fungsi untuk menampilkan data dari database ###
 
-        public function viewData()
+        public function viewData($search, $filter)
         {
-            $stmt = $this->db->prepare("SELECT * FROM products WHERE isCustom = 0");
+            // echo $search;
+            // echo $filter;
+            if ($search == '' && $filter == '') {
+                $stmt = $this->db->prepare("SELECT * FROM products WHERE isCustom = 0");
 
-            $stmt->execute();
+                $stmt->execute();
 
-            if ($stmt->rowCount() > 0) {
-                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                    ?>
-                    <div class="col-2 my-2">
-                        <button type="button" class="border-0 bg-transparent" data-bs-toggle="modal" data-bs-target="#Modal<?php echo($row['id']); ?>">
-                            <div class="card"">
-                                <img src="../upload/<?php echo($row['foto']); ?>" class="card-img-top" alt="...">
-                                <ul class="list-group list-group-flush text-center">
-                                    <li class="list-group-item border-0 py-1 px-0">Kode: <?php echo($row['id']); ?></li>
-                                    <li class="list-group-item border-0 py-1 px-0">Harga: Rp <?php echo($row['harga']); ?></li>
-                                </ul>
-                            </div>
-                        </button>
-                    </div>
+                if ($stmt->rowCount() > 0) {
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        ?>
+                        <div class="col-2 my-2">
+                            <button type="button" class="border-0 bg-transparent" data-bs-toggle="modal" data-bs-target="#Modal<?php echo($row['id']); ?>">
+                                <div class="card"">
+                                    <img src="../upload/<?php echo($row['foto']); ?>" class="card-img-top" alt="...">
+                                    <ul class="list-group list-group-flush text-center">
+                                        <li class="list-group-item border-0 py-1 px-0">Kode: <?php echo($row['id']); ?></li>
+                                        <li class="list-group-item border-0 py-1 px-0">Harga: Rp <?php echo($row['harga']); ?></li>
+                                    </ul>
+                                </div>
+                            </button>
+                        </div>
 
-             <?php
+                <?php
+                    }
+                }
+            }
+            elseif($filter != ''){
+                $stmt = $this->db->prepare("SELECT * FROM products WHERE jenis_product_id = :id AND isCustom = 0");
+
+                $stmt->bindValue(':id',$filter);
+
+                $stmt->execute();
+
+                if ($stmt->rowCount() > 0) {
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        ?>
+                        <div class="col-2 my-2">
+                            <button type="button" class="border-0 bg-transparent" data-bs-toggle="modal" data-bs-target="#Modal<?php echo($row['id']); ?>">
+                                <div class="card"">
+                                    <img src="../upload/<?php echo($row['foto']); ?>" class="card-img-top" alt="...">
+                                    <ul class="list-group list-group-flush text-center">
+                                        <li class="list-group-item border-0 py-1 px-0">Kode: <?php echo($row['id']); ?></li>
+                                        <li class="list-group-item border-0 py-1 px-0">Harga: Rp <?php echo($row['harga']); ?></li>
+                                    </ul>
+                                </div>
+                            </button>
+                        </div>
+
+                <?php
+                    }
                 }
             } 
+            else{
+                $stmt = $this->db->prepare("SELECT * FROM products WHERE nama_produk LIKE :search AND isCustom = 0");
+
+                $stmt->bindValue(':search','%'.$search.'%');
+
+                $stmt->execute();
+
+                if ($stmt->rowCount() > 0) {
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        ?>
+                        <div class="col-2 my-2">
+                            <button type="button" class="border-0 bg-transparent" data-bs-toggle="modal" data-bs-target="#Modal<?php echo($row['id']); ?>">
+                                <div class="card"">
+                                    <img src="../upload/<?php echo($row['foto']); ?>" class="card-img-top" alt="...">
+                                    <ul class="list-group list-group-flush text-center">
+                                        <li class="list-group-item border-0 py-1 px-0">Kode: <?php echo($row['id']); ?></li>
+                                        <li class="list-group-item border-0 py-1 px-0">Harga: Rp <?php echo($row['harga']); ?></li>
+                                    </ul>
+                                </div>
+                            </button>
+                        </div>
+
+                <?php
+                    }
+                }
+            }
         }
         public function viewDataCatalog()
         {
@@ -160,10 +242,10 @@
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Meja Belajar</h5>&nbsp;&nbsp;&nbsp;
+                                    <h5 class="modal-title" id="exampleModalLabel"><?php echo($row['nama_produk']); ?></h5>&nbsp;&nbsp;&nbsp;
                                     <?php if($_SESSION['level']=='admin'){ ?>
                                         <a class="btn btn-prim" href="editItem.php?id=<?php echo($row['id']); ?>">UBAH</a>&nbsp;&nbsp;&nbsp;
-                                        <a class="btn btn-danger" onClick="javascript: return confirm('Apakah anda yakin ingin menghapus?');"  href="deleteItem.php?id=<?php echo($row['id']); ?>">HAPUS</a>
+                                        <a class="btn btn-danger" onClick="javascript: return confirm('Apakah anda yakin ingin menghapus?');" href="deleteItem.php?id=<?php echo($row['id']); ?>">HAPUS</a>
                                     <?php } ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
@@ -239,13 +321,26 @@
 
         public function deleteData($id)
         {
-            $stmt = $this->db->prepare("DELETE FROM products WHERE id=:id");
+            $stmt = $this->db->prepare("SELECT * FROM orders WHERE product_id = $id");
 
             $stmt->bindparam(":id", $id);
 
             $stmt->execute();
 
-            return true;
+            if ($stmt->rowCount() == 0) {
+                $del = $this->db->prepare("DELETE FROM products WHERE id=:id");
+
+                $del->bindparam(":id", $id);
+    
+                $del->execute();
+    
+                return true;
+                header("Location: index.php");
+            }
+            else{
+                echo "<script type='text/javascript'>alert('Data sedang digunakan di proses lain'); location.href = 'index.php'</script>";
+                // header("Location: index.php");
+            }
         }
 
         ### End : fungsi untuk menghapus data###

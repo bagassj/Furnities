@@ -17,7 +17,9 @@
 
                 $insert->bindparam(":idItem", $idItem);
 
-                $insert->execute();
+                $insert->execute(); 
+
+                echo "<script type='text/javascript'>alert('Pesanan berhasil ditambahkan');</script>";
             } catch (PDOException $e) {
                 return false;
             }
@@ -92,7 +94,13 @@
                         <div class="card mb-3">
                             <div class="row no-gutters px-5 py-2">
                                 <div class="col-md-12">
-                                    <h5 class="card-title"><?php echo($row['nama_produk']); ?></h5>
+                                    <?php if($row['nama_produk'] == ''){
+                                        ?> <h5 class="card-title">Custom Design</h5> <?php
+                                    }
+                                    else{
+                                        ?> <h5 class="card-title"><?php echo($row['nama_produk']); ?></h5> <?php
+                                    } 
+                                    ?>
                                 </div>
                                 <div class="col-md-3">
                                     <img src="../upload/<?php echo($row['foto']); ?>" class="card-img" alt="...">
@@ -119,7 +127,7 @@
                                     ?>
                                         <!-- <form method="post" enctype="multipart/form-data"> -->
                                             <input type="hidden" name="id" value="<?php echo($row['orderID']); ?>"/>
-                                            <button class="btn btn-danger" name="deleteOrder">Hapus</button>
+                                            <a class="btn btn-danger" onClick="javascript: return confirm('Apakah anda yakin ingin menghapus?');" href="deleteOrder.php?id=<?php echo($row['orderID']); ?>">Hapus</a>
                                             <button class="btn btn-success" name="addOrder"data-bs-toggle="modal" data-bs-target="#Modal<?php echo($row['orderID']); ?>">Konfirmasi</button>
                                         <!-- </form> -->
                                     <?php 
@@ -297,6 +305,17 @@
 
                 return false;
             }
+        }
+
+        public function deleteData($id)
+        {
+            $del = $this->db->prepare("DELETE FROM orders WHERE id=:id");
+
+            $del->bindparam(":id", $id);
+
+            $del->execute();
+
+            header("Location: order.php");
         }
     }
 ?>

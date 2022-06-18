@@ -11,6 +11,4 @@
 
     $item->deleteData($id);
 
-    header("Location: index.php");
-
 ?>

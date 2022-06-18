@@ -21,7 +21,7 @@ if(isset($_POST['kirim'])){
   if($user->register($nama, $email, $password, $alamat, $nohp)){ 
 
     // Jika berhasil set variable success ke true 
-    header("location: signin.php");
+    header("location: customer/index.php");
     $success = true; 
 
   }else{ 

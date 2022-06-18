@@ -5,6 +5,17 @@ include_once '../controller/woodClass.php';
 
 $item = new item($con);
 $wood = new wood($con);
+$search = '';
+$filter = '';
+
+
+if(isset($_POST['btnSearch'])){
+    $search = $_POST['search'];
+}
+
+if(isset($_POST['btnFilter'])){
+    $filter = $_POST['filter'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,11 +42,17 @@ $wood = new wood($con);
     </nav>
     <div class="container">
         <section id="welcomePage" class="row mt-5 pt-5">
-            <div class="col-9">
-                <input type="text" class="form-control">
-            </div>
-            <div class="col-1 d-grid gap-2">
-                <button type="submit" class="btn">Cari</button>
+            <div class="col-10">
+                <form method="post">
+                    <div class="row">
+                        <div class="col-11">
+                            <input type="text" name="search" class="form-control">
+                        </div>
+                        <div class="col-1">
+                            <button type="submit" name="btnSearch" class="btn">Cari</button>
+                        </div>
+                    </div>
+                </form> 
             </div>
             <div class="col-2 d-grid gap-2">
                 <button type="submit" class="btn" onclick="location.href='addItem.php'">Tambah Barang</button>
@@ -43,15 +60,14 @@ $wood = new wood($con);
         </section>
         <section id="catalogPage" class="row py-5">
             <div class="col-12 pb-5 text-center">
-                <span class="px-3"><a href="#">Meja</a></span>
-                <span class="px-3"><a href="#">Kursi</a></span>
-                <span class="px-3"><a href="#">Lemari</a></span>
-                <span class="px-3"><a href="#">Ranjang</a></span>
-                <span class="px-3"><a href="#">Dekorasi</a></span>
-                <span class="px-3"><a href="#">Lain-lain</a></span>
+                <div class="row d-flex justify-content-center text-center">
+                    <?php
+                    $item->viewDataFilter();
+                    ?>
+                </div>
             </div>
             <?php
-            $item->viewData();
+            $item->viewData($search, $filter);
             ?>
         </section>
     </div>

@@ -50,6 +50,9 @@ class Auth
 
             $stmt->execute();
 
+            $_SESSION['user_session'] = $this->db->lastInsertId();
+            $_SESSION['level'] = 'customer';
+
             return true;
         } catch (PDOException $e) {
 
@@ -81,7 +84,7 @@ class Auth
 
     {
         if($email=="" || $password==""){
-            echo "<script type='text/javascript'>alert('Email/Password ada yang kosong');</script>";
+            echo "<script type='text/javascript'>alert('Email atau Password ada yang salah');</script>";
         }
         else{
             try {
@@ -109,6 +112,7 @@ class Auth
                         return true;
                     } else {
 
+                        echo "<script type='text/javascript'>alert('Username atau Password Salah');</script>";
                         $this->error = "Email atau Password Salah";
                         return false;
                     }
@@ -135,9 +139,13 @@ class Auth
         
                             return true;
                         } else {
+                            echo "<script type='text/javascript'>alert('Username atau Password Salah');</script>";
                             $this->error = "Email atau Password Salah";
                             return false;
                         }
+                    }
+                    else{
+                        echo "<script type='text/javascript'>alert('Username atau Password Salah');</script>";
                     } 
                 }
             } catch (PDOException $e) {

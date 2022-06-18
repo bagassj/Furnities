@@ -152,6 +152,7 @@
                 $stmt->bindparam(":tanggal",$tanggal);
 
                 $stmt->execute();
+                echo "<script type='text/javascript'>alert('Pesanan berhasil ditambahkan');</script>";
             } catch (PDOException $e) {
                 echo $e->getMessage();
             }
@@ -193,7 +194,7 @@
                                     ?>
                                         <form method="post" enctype="multipart/form-data">
                                             <input type="hidden" name="id" value="<?php echo($row['ID']); ?>"/>
-                                            <button class="btn btn-danger" name="deleteOrder">Hapus</button>
+                                            <a class="btn btn-danger" name="deleteOrder" onClick="javascript: return confirm('Apakah anda yakin ingin menghapus?');" href="deleteService.php?id=<?php echo($row['ID']); ?>">Hapus</a>
                                             <button class="btn btn-success" name="confirmService">Konfirmasi</button>
                                         </form>
                                     <?php 
@@ -234,6 +235,18 @@
 
                 return false;
             }
+        }
+
+        
+        public function deleteData($id)
+        {
+            $del = $this->db->prepare("DELETE FROM services WHERE id=:id");
+
+            $del->bindparam(":id", $id);
+
+            $del->execute();
+
+            header("Location: service.php");
         }
  
     }
