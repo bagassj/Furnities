@@ -266,6 +266,7 @@
                                             <div class="col-md-12 my-3 text-center">
                                                 <form method="post" enctype="multipart/form-data">
                                                     <input type="hidden" name="id" value="<?php echo($row['id']); ?>"/>
+                                                    <input type="hidden" name="price" value="<?php echo($row['harga']); ?>"/>
                                                     <button class="btn btn-prim" name="addOrder">Buat Pesanan</button>
                                                 </form>
                                             </div> 

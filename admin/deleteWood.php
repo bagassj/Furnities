@@ -7,5 +7,5 @@
     $id = $_GET['id'];
 
     $wood->deleteData($id);
-    header("Location: wood.php");
+    // header("Location: wood.php");
 ?>

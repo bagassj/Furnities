@@ -13,7 +13,8 @@ $filter = '';
 if(isset($_POST['addOrder'])){
     $idCustomer = $_SESSION['user_session'];
     $idItem = $_POST['id'];
-    $order->addOrder($idCustomer, $idItem);
+    $price = $_POST['price']; 
+    $order->addOrder($idCustomer, $idItem, $price);
 }
 
 if(isset($_POST['btnSearch'])){
@@ -49,16 +50,16 @@ if(isset($_POST['btnFilter'])){
     <div class="container">
         <section id="welcomePage" class="row mt-5 pt-5">
             <div class="col-10">
-            <form method="post">
-                <div class="row">
-                    <div class="col-11">
-                        <input type="text" name="search" class="form-control">
+                <form method="post">
+                    <div class="row">
+                        <div class="col-11">
+                            <input type="text" name="search" class="form-control">
+                        </div>
+                        <div class="col-1">
+                            <button type="submit" name="btnSearch" class="btn">Cari</button>
+                        </div>
                     </div>
-                    <div class="col-1">
-                        <button type="submit" name="btnSearch" class="btn">Cari</button>
-                    </div>
-                </div>
-            </form> 
+                </form> 
             </div>
             <div class="col-2 d-grid gap-2">
                 <button type="submit" class="btn" onclick="location.href='customOrder.php'">Custom Desain</button>

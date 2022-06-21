@@ -22,7 +22,7 @@ if(isset($_POST['save'])){
 
     move_uploaded_file($foto, $location);
     $id = $item->customProduk($alamat, $jenisKayu, $jenisProduk, $harga, $keterangan, $newfilename, 1);
-    $order->addOrderCustom($_SESSION['user_session'], $id, $alamat);
+    $order->addOrderCustom($_SESSION['user_session'], $id, $alamat, $harga);
 }
 ?>
 <!DOCTYPE html>

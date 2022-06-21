@@ -8,14 +8,16 @@
             $this->db = $con;
         }
 
-        public function addOrder($idCustomer, $idItem)
+        public function addOrder($idCustomer, $idItem, $price)
         {
             try {
-                $insert = $this->db->prepare("INSERT INTO orders(customer_id, product_id) VALUES(:idCustomer, :idItem)");
+                $insert = $this->db->prepare("INSERT INTO orders(customer_id, product_id, harga) VALUES(:idCustomer, :idItem, :price)");
 
                 $insert->bindparam(":idCustomer", $idCustomer);
 
                 $insert->bindparam(":idItem", $idItem);
+
+                $insert->bindparam(":price", $price);
 
                 $insert->execute(); 
 
@@ -25,16 +27,18 @@
             }
         }
 
-        public function addOrderCustom($idCustomer, $idItem, $alamat)
+        public function addOrderCustom($idCustomer, $idItem, $alamat, $price)
         {
             try {
-                $insert = $this->db->prepare("INSERT INTO orders(customer_id, product_id, lokasi_tujuan, status_pesanan, tanggal) VALUES(:idCustomer, :idItem, :alamat, 'Menunggu Konfirmasi', now())");
+                $insert = $this->db->prepare("INSERT INTO orders(customer_id, product_id, lokasi_tujuan, status_pesanan, tanggal, harga) VALUES(:idCustomer, :idItem, :alamat, 'Menunggu Konfirmasi', now(), :price)");
 
                 $insert->bindparam(":idCustomer", $idCustomer);
 
                 $insert->bindparam(":idItem", $idItem);
 
                 $insert->bindparam(":alamat", $alamat);
+
+                $insert->bindparam(":price", $price);
 
                 $insert->execute();
             } catch (PDOException $e) {
@@ -85,7 +89,7 @@
 
         public function viewDataByID($id)
         {
-            $stmt = $this->db->prepare("SELECT orders.id AS orderID, foto, nama_produk, harga, status_pesanan, deskripsi, jenis_kayu.nama_jenis AS jenisKayu, jenis_product.nama_jenis AS jenisProduk FROM orders JOIN products ON orders.product_id = products.id JOIN jenis_kayu ON products.jenis_kayu_id = jenis_kayu.id  JOIN jenis_product ON products.jenis_product_id = jenis_product.id WHERE customer_id = :id");
+            $stmt = $this->db->prepare("SELECT orders.id AS orderID, foto, nama_produk, orders.harga AS harga, status_pesanan, deskripsi, jenis_kayu.nama_jenis AS jenisKayu, jenis_product.nama_jenis AS jenisProduk FROM orders JOIN products ON orders.product_id = products.id JOIN jenis_kayu ON products.jenis_kayu_id = jenis_kayu.id  JOIN jenis_product ON products.jenis_product_id = jenis_product.id WHERE customer_id = :id");
             $stmt->execute(array(":id" => $id));
             if ($stmt->rowCount() > 0) {
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -150,14 +154,21 @@
 
         public function viewEditDataByID($id)
         {
-            $stmt = $this->db->prepare("SELECT orders.id AS orderID, foto, nama_produk, harga, lokasi_tujuan, status_pesanan, nama_lengkap, deskripsi, jenis_kayu.nama_jenis AS jenisKayu, jenis_product.nama_jenis AS jenisProduk FROM orders JOIN customers ON orders.customer_id = customers.id JOIN products ON orders.product_id = products.id JOIN jenis_kayu ON products.jenis_kayu_id = jenis_kayu.id  JOIN jenis_product ON products.jenis_product_id = jenis_product.id WHERE orders.id = :id");
+            $stmt = $this->db->prepare("SELECT orders.id AS orderID, foto, nama_produk, orders.harga AS harga, lokasi_tujuan, status_pesanan, nama_lengkap, deskripsi, jenis_kayu.nama_jenis AS jenisKayu, jenis_product.nama_jenis AS jenisProduk FROM orders JOIN customers ON orders.customer_id = customers.id JOIN products ON orders.product_id = products.id JOIN jenis_kayu ON products.jenis_kayu_id = jenis_kayu.id  JOIN jenis_product ON products.jenis_product_id = jenis_product.id WHERE orders.id = :id");
             $stmt->execute(array(":id" => $id));
             if ($stmt->rowCount() > 0) {
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     ?>
                         <div class="row no-gutters px-5 py-2">
                             <div class="col-md-12">
-                                <h5 class="card-title"><?php echo($row['nama_produk']); ?></h5>
+                                    <?php 
+                                    if($row['nama_produk'] == ''){
+                                        ?> <h5 class="card-title">Custom Design</h5> <?php
+                                    }
+                                    else{
+                                        ?> <h5 class="card-title"><?php echo($row['nama_produk']); ?></h5> <?php
+                                    } 
+                                    ?>
                             </div>
                             <div class="col-4">
                                 <img src="../upload/<?php echo($row['foto']); ?>" class="card-img" alt="...">

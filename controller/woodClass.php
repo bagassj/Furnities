@@ -82,11 +82,37 @@ class wood{
     }
     public function deleteData($id)
     {
-        $stmt = $this->db->prepare("DELETE FROM jenis_kayu WHERE id=:id");
+        $item = $this->db->prepare("SELECT * FROM products WHERE jenis_kayu_id = $id");
 
-        $stmt->bindparam(":id", $id);
+        $item->bindparam(":id", $id);
 
-        $stmt->execute();
+        $item->execute();
+
+        if ($item->rowCount() == 0) {
+            $service = $this->db->prepare("SELECT * FROM services WHERE jenis_kayu_id = $id");
+
+            $service->bindparam(":id", $id);
+
+            $service->execute();
+
+            if ($service->rowCount() == 0) {
+
+                $stmt = $this->db->prepare("DELETE FROM jenis_kayu WHERE id=:id");
+
+                $stmt->bindparam(":id", $id);
+
+                $stmt->execute(); 
+                header("Location: wood.php");
+            }
+            else{
+                echo "<script type='text/javascript'>alert('Data sedang digunakan di proses lain'); location.href = 'wood.php'</script>";
+                // header("Location: index.php");
+            }
+        }
+        else{
+            echo "<script type='text/javascript'>alert('Data sedang digunakan di proses lain'); location.href = 'wood.php'</script>";
+            // header("Location: index.php");
+        }
     }
 }
 ?>
